@@ -2,36 +2,30 @@ pipeline {
     agent any
     environment {
         DOCKER_IMAGE = 'nginx-image:latest'
-        DOCKER_TAG ='version-1'
-		
-	    }
-
-
+        DOCKER_TAG = 'version-1'
+        PROJECT_NAME = 'nginx-image' // Define your project name here
+    }
 
     stages {
-
-     stage('Init') {
+        stage('Init') {
             steps {
                 sh '''
-                COMMIT_ID=$(git log -1|head -1|awk -F ' ' ' {print $NF}')
+                COMMIT_ID=$(git log -1 --pretty=format:'%H')
                 echo "........result of commit .... $COMMIT_ID"
                 '''
             }
         }
-      
-     stage('Building Docker image') { 
+
+        stage('Building Docker image') { 
             steps { 
                 script { 
                     dockerImage = docker.build("$DOCKER_TAG", "-f ./Dockerfile .")
                 }
+                // Use grep to filter the images correctly
                 sh '''
-                docker images|grep $PROJECT_NAME
+                docker images | grep $PROJECT_NAME
                 '''
             } 
         }
-
-
-
-        }
     }
-
+}
