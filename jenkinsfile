@@ -2,8 +2,8 @@ pipeline {
     agent any
     environment {
         DOCKER_IMAGE = 'nginx-image:latest'
-        DOCKER_TAG = 'version-1'
-        PROJECT_NAME = 'version-1' // Set this to the correct image name
+        DOCKER_TAG = 'nginx'
+        PROJECT_NAME = 'nginx' // Set this to the correct image name
     }
 
     stages {
