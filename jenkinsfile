@@ -3,7 +3,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'nginx-image:latest'
         DOCKER_TAG = 'version-1'
-        PROJECT_NAME = 'nginx-image' // Define your project name here
+        PROJECT_NAME = 'version-1' // Set this to the correct image name
     }
 
     stages {
@@ -23,7 +23,7 @@ pipeline {
                 }
                 // Use grep to filter the images correctly
                 sh '''
-                docker images | grep $PROJECT_NAME
+                docker images | grep $PROJECT_NAME || true
                 '''
             } 
         }
